@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.vlcervera.composition.application.UserFinderUseCase;
 import org.vlcervera.composition.application.response.UserResponse;
-import org.vlcervera.composition.infrastructure.web.exception.UserFinderException;
+import org.vlcervera.composition.infrastructure.exception.UserFinderException;
 
 import java.util.UUID;
 

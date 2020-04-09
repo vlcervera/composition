@@ -1,4 +1,4 @@
-package org.vlcervera.composition.infrastructure.web.exception;
+package org.vlcervera.composition.infrastructure.exception;
 
 import java.util.UUID;
 
