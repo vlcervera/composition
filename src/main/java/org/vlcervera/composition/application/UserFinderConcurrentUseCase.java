@@ -32,7 +32,7 @@ public class UserFinderConcurrentUseCase {
 
         UUID                           userId          = UUID.randomUUID();
         CompletableFuture<UserName>    userNamePage    = userNameFinderPort.findConcurrent(userId);
-        CompletableFuture<UserPhone>   userPhonePage   = userPhoneFinderPort.findConcurrent(userId);
+        CompletableFuture<UserPhone>   userPhonePage   = userPhoneFinderPort.findAsync(userId);
         CompletableFuture<UserCompany> userCompanyPage = userCompanyFinderPort.findConcurrent(userId);
         CompletableFuture<UserEmail>   userEmailPage   = userEmailFinderPort.findConcurrent(userId);
 

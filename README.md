@@ -13,10 +13,10 @@ public class CompositionApplication {
 }
 ```
 
-By default, Spring use the ThreadPoolTaskExecutor injected in your context but you can define a custom thread pool executor
+By default, Spring uses the ThreadPoolTaskExecutor injected in context but you can define a custom thread pool executor
 for async methods
 ```java
-    @Bean
+    @Bean("customTaskExecutor")
     public Executor customTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(4);

@@ -17,7 +17,7 @@ public class UserPhoneFinderAdapter implements UserPhoneFinderPort {
 
     @Override
     @Async("customTaskExecutor")
-    public CompletableFuture<UserPhone> findConcurrent(UUID userId) {
+    public CompletableFuture<UserPhone> findAsync(UUID userId) {
         log.info("Start to retrieve phone for user {}", userId);
         return CompletableFuture.completedFuture(generate());
     }
