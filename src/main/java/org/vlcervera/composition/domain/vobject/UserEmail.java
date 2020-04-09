@@ -1,14 +1,13 @@
 package org.vlcervera.composition.domain.vobject;
 
-import org.jeasy.random.annotation.Randomizer;
-import org.jeasy.random.randomizers.EmailRandomizer;
-
 public class UserEmail extends ValueObject<String> {
 
-    @Randomizer(EmailRandomizer.class)
-    protected String value;
+    public static UserEmail create(String value) {
+        //TODO ADD EMAIL PATTERN TO CHECK IT. If value is not an email throw Custom exception
+        return new UserEmail(value);
+    }
 
-    public UserEmail(String value) {
+    private UserEmail(String value){
         super(value);
     }
 }

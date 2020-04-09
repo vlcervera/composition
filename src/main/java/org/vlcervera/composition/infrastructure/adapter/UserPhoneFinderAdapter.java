@@ -16,10 +16,20 @@ import java.util.concurrent.CompletableFuture;
 public class UserPhoneFinderAdapter implements UserPhoneFinderPort {
 
     @Override
-    @Async("taskExecutor")
-    public CompletableFuture<UserPhone> find(UUID uuid) {
-        log.info("Retrieve phone for user {}", uuid);
+    @Async("customTaskExecutor")
+    public CompletableFuture<UserPhone> findConcurrent(UUID userId) {
+        log.info("Start to retrieve phone for user {}", userId);
+        return CompletableFuture.completedFuture(generate());
+    }
+
+    @Override
+    public UserPhone find(UUID userId) {
+        return generate();
+    }
+
+    private UserPhone generate() {
         TimeUtilities.sleep(5);
-        return CompletableFuture.completedFuture(new UserPhone("+3422124124"));
+        log.info("End retrieve phone for user");
+        return UserPhone.create("+3422124124");
     }
 }

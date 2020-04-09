@@ -16,12 +16,20 @@ import java.util.concurrent.CompletableFuture;
 public class UserNameFinderAdapter implements UserNameFinderPort {
 
     @Override
-    @Async("taskExecutor")
-    public CompletableFuture<UserName> find(UUID uuid) {
-        log.info("Retrieve name for user {}", uuid);
-        TimeUtilities.sleep(5);
+    @Async("customTaskExecutor")
+    public CompletableFuture<UserName> findConcurrent(UUID userId) {
+        log.info("Start to retrieve name for user {}", userId);
+        return CompletableFuture.completedFuture(generate(userId));
+    }
 
-        //
-        return CompletableFuture.completedFuture(new UserName("Name for " + uuid.toString()));
+    @Override
+    public UserName find(UUID userId) {
+        return generate(userId);
+    }
+
+    private UserName generate(UUID userId) {
+        TimeUtilities.sleep(5);
+        log.info("End retrieve name for user {}", userId);
+        return new UserName("Name for " + userId.toString());
     }
 }

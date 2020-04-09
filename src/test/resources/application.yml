@@ -3,7 +3,6 @@ spring:
     name: composition
   datasource:
     driver-class-name: org.postgresql.Driver
-    url:
   jpa:
     hibernate:
       ddl-auto: create-drop

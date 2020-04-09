@@ -16,10 +16,20 @@ import java.util.concurrent.CompletableFuture;
 public class UserEmailFinderAdapter implements UserEmailFinderPort {
 
     @Override
-    @Async("taskExecutor")
-    public CompletableFuture<UserEmail> find(UUID uuid) {
-        log.info("Retrieve email for user {}", uuid);
+    @Async("customTaskExecutor")
+    public CompletableFuture<UserEmail> findConcurrent(UUID userId) {
+        log.info("Start retrieve email for user {}", userId);
+        return CompletableFuture.completedFuture(generate());
+    }
+
+    @Override
+    public UserEmail find(UUID userId) {
+        return generate();
+    }
+
+    private UserEmail generate() {
         TimeUtilities.sleep(5);
-        return CompletableFuture.completedFuture(new UserEmail("test@gm.com"));
+        log.info("End retrieve email for user");
+        return UserEmail.create("test@gm.com");
     }
 }

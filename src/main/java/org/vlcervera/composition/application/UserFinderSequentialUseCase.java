@@ -15,35 +15,29 @@ import org.vlcervera.composition.domain.vobject.UserName;
 import org.vlcervera.composition.domain.vobject.UserPhone;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserFinderUseCase {
-
+public class UserFinderSequentialUseCase {
     private final UserNameFinderPort    userNameFinderPort;
     private final UserPhoneFinderPort   userPhoneFinderPort;
     private final UserCompanyFinderPort userCompanyFinderPORT;
     private final UserEmailFinderPort   userEmailFinderPort;
 
-    public UserResponse find() throws ExecutionException, InterruptedException {
+    public UserResponse find() {
 
-        UUID                           userId          = UUID.randomUUID();
-        CompletableFuture<UserName>    userNamePage    = userNameFinderPort.find(userId);
-        CompletableFuture<UserPhone>   userPhonePage   = userPhoneFinderPort.find(userId);
-        CompletableFuture<UserCompany> userCompanyPage = userCompanyFinderPORT.find(userId);
-        CompletableFuture<UserEmail>   userEmailPage   = userEmailFinderPort.find(userId);
-
-        // Wait until they are all done
-        CompletableFuture.allOf(userNamePage, userPhonePage, userCompanyPage).join();
+        UUID        userId      = UUID.randomUUID();
+        UserName    userName    = userNameFinderPort.find(userId);
+        UserPhone   userPhone   = userPhoneFinderPort.find(userId);
+        UserCompany userCompany = userCompanyFinderPORT.find(userId);
+        UserEmail   userEmail   = userEmailFinderPort.find(userId);
 
         User user = User.builder()
-                        .name(userNamePage.get())
-                        .email(userEmailPage.get())
-                        .company(userCompanyPage.get())
-                        .phone(userPhonePage.get())
+                        .name(userName)
+                        .email(userEmail)
+                        .company(userCompany)
+                        .phone(userPhone)
                         .build();
 
         return UserResponse.of(user);

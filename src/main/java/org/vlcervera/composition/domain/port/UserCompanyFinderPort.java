@@ -6,7 +6,9 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public interface UserCompanyFinderPort {
-    CompletableFuture<UserCompany> find(UUID uuid);
+    CompletableFuture<UserCompany> findConcurrent(UUID userId);
+
+    UserCompany find(UUID userId);
 }
 
 

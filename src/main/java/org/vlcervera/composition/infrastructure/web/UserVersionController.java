@@ -1,4 +1,4 @@
-package org.vlcervera.composition.infrastructure;
+package org.vlcervera.composition.infrastructure.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

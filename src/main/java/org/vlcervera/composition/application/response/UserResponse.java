@@ -1,5 +1,6 @@
 package org.vlcervera.composition.application.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import org.vlcervera.composition.domain.User;
 @Data
 @NoArgsConstructor
 @Builder
+@AllArgsConstructor
 public class UserResponse {
     private String name;
     private String email;

@@ -16,10 +16,20 @@ import java.util.concurrent.CompletableFuture;
 public class UserCompanyFinderAdapter implements UserCompanyFinderPort {
 
     @Override
-    @Async("taskExecutor")
-    public CompletableFuture<UserCompany> find(UUID uuid) {
-        log.info("Retrieve company for user {}", uuid);
+    @Async("customTaskExecutor")
+    public CompletableFuture<UserCompany> findConcurrent(UUID userId) {
+        log.info("Start retrieve company for user {}", userId);
+        return CompletableFuture.completedFuture(generate(userId));
+    }
+
+    @Override
+    public UserCompany find(UUID userId) {
+        return generate(userId);
+    }
+
+    private UserCompany generate(UUID userId) {
         TimeUtilities.sleep(5);
-        return CompletableFuture.completedFuture(new UserCompany("Company for " + uuid.toString()));
+        log.info("End retrieve company for user {}", userId);
+        return new UserCompany("Company for " + userId.toString());
     }
 }
