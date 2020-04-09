@@ -37,9 +37,6 @@ public class UserAsyncFinderAdapter implements UserFinderPort {
             CompletableFuture<UserCompany> userCompanyPage = userCompanyFinder.findAsync(userId);
             CompletableFuture<UserEmail>   userEmailPage   = userEmailFinder.findAsync(userId);
 
-            /* FIXME happy path. In case of get an Exception in findAsync it must be handled
-            In this example join() can throw a CompletionException and it is handled by ExceptionHandler defined in
-            Controller */
             CompletableFuture.allOf(userNamePage, userPhonePage, userCompanyPage, userEmailPage).join();
 
             user = User.builder()
