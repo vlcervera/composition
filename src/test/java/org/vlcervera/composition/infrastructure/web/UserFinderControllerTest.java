@@ -19,6 +19,7 @@ import org.vlcervera.composition.application.response.UserResponse;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,9 +34,13 @@ public class UserFinderControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private static Stream<Arguments> provider() {
+
+        UUID   userId   = UUID.randomUUID();
+        String endpoint = "/users/" + userId.toString();
+
         return Stream.of(
-                Arguments.of("/users/concurrent", 5),
-                Arguments.of("/users/sequential", 20)
+                Arguments.of(endpoint + "/async", 5),
+                Arguments.of(endpoint, 20)
                         );
     }
 

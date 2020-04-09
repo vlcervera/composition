@@ -31,7 +31,7 @@ for async methods
 Apply the @Async annotation in your method. You can define the custom thread pool defined above.
 ```java
     @Async("customTaskExecutor")
-    public CompletableFuture<UserPhone> findConcurrent(UUID userId) {
+    public CompletableFuture<UserPhone> findAsync(UUID userId) {
         log.info("Start to retrieve phone for user {}", userId);
         return CompletableFuture.completedFuture(generate());
     }
@@ -39,19 +39,29 @@ Apply the @Async annotation in your method. You can define the custom thread poo
 
 When you have all the methods for the composition you can use the CompletableFuture api to join all responses
 ````java
-        CompletableFuture<UserName>    userNamePage    = userNameFinderPort.findAsync(userId);
-        CompletableFuture<UserPhone>   userPhonePage   = userPhoneFinderPort.findAsync(userId);
-        CompletableFuture<UserCompany> userCompanyPage = userCompanyFinderPort.findAsync(userId);
-        CompletableFuture<UserEmail>   userEmailPage   = userEmailFinderPort.findAsync(userId);
+    public User find(UUID userId) {
+        User user = null;
+        try {
+            CompletableFuture<UserName>    userNamePage    = userNameFinder.findAsync(userId);
+            CompletableFuture<UserPhone>   userPhonePage   = userPhoneFinder.findAsync(userId);
+            CompletableFuture<UserCompany> userCompanyPage = userCompanyFinder.findAsync(userId);
+            CompletableFuture<UserEmail>   userEmailPage   = userEmailFinder.findAsync(userId);
 
-        CompletableFuture.allOf(userNamePage, userPhonePage, userCompanyPage, userEmailPage).join();
+            CompletableFuture.allOf(userNamePage, userPhonePage, userCompanyPage, userEmailPage).join();
 
-        User user = User.builder()
-                        .name(userNamePage.get())
-                        .email(userEmailPage.get())
-                        .company(userCompanyPage.get())
-                        .phone(userPhonePage.get())
-                        .build();
+            user = User.builder()
+                       .name(userNamePage.get())
+                       .email(userEmailPage.get())
+                       .company(userCompanyPage.get())
+                       .phone(userPhonePage.get())
+                       .build();
+        } catch (Exception e) {
+            log.error("Error retrieving user {}", userId, e);
+            throw new UserFinderException();
+        }
+
+        return user;
+    }
 
 ````
 
