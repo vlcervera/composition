@@ -37,10 +37,10 @@ Apply the @Async annotation in your method. You can define the custom thread poo
     }
 ```
 
-When you have all the methods for the composition you can use the CompletableFuture api to join all responses
+When you have all the methods to make the composition you can use the CompletableFuture api to join all responses
 ````java
     public User find(UUID userId) {
-        User user = null;
+        User user;
         try {
             CompletableFuture<UserName>    userNamePage    = userNameFinder.findAsync(userId);
             CompletableFuture<UserPhone>   userPhonePage   = userPhoneFinder.findAsync(userId);
