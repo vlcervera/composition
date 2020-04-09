@@ -39,10 +39,10 @@ Apply the @Async annotation in your method. You can define the custom thread poo
 
 When you have all the methods for the composition you can use the CompletableFuture api to join all responses
 ````java
-        CompletableFuture<UserName>    userNamePage    = userNameFinderPort.findConcurrent(userId);
-        CompletableFuture<UserPhone>   userPhonePage   = userPhoneFinderPort.findConcurrent(userId);
-        CompletableFuture<UserCompany> userCompanyPage = userCompanyFinderPort.findConcurrent(userId);
-        CompletableFuture<UserEmail>   userEmailPage   = userEmailFinderPort.findConcurrent(userId);
+        CompletableFuture<UserName>    userNamePage    = userNameFinderPort.findAsync(userId);
+        CompletableFuture<UserPhone>   userPhonePage   = userPhoneFinderPort.findAsync(userId);
+        CompletableFuture<UserCompany> userCompanyPage = userCompanyFinderPort.findAsync(userId);
+        CompletableFuture<UserEmail>   userEmailPage   = userEmailFinderPort.findAsync(userId);
 
         CompletableFuture.allOf(userNamePage, userPhonePage, userCompanyPage, userEmailPage).join();
 
