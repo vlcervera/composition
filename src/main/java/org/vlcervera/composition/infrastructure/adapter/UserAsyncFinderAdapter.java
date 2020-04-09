@@ -4,12 +4,12 @@ package org.vlcervera.composition.infrastructure.adapter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.vlcervera.composition.domain.User;
+import org.vlcervera.composition.domain.model.User;
 import org.vlcervera.composition.domain.port.UserFinderPort;
-import org.vlcervera.composition.domain.vobject.UserCompany;
-import org.vlcervera.composition.domain.vobject.UserEmail;
-import org.vlcervera.composition.domain.vobject.UserName;
-import org.vlcervera.composition.domain.vobject.UserPhone;
+import org.vlcervera.composition.domain.model.vobject.UserCompany;
+import org.vlcervera.composition.domain.model.vobject.UserEmail;
+import org.vlcervera.composition.domain.model.vobject.UserName;
+import org.vlcervera.composition.domain.model.vobject.UserPhone;
 import org.vlcervera.composition.infrastructure.finder.UserCompanyFinder;
 import org.vlcervera.composition.infrastructure.finder.UserEmailFinder;
 import org.vlcervera.composition.infrastructure.finder.UserNameFinder;
@@ -30,6 +30,7 @@ public class UserAsyncFinderAdapter implements UserFinderPort {
     private final UserEmailFinder   userEmailFinder;
 
     public User find(UUID userId) {
+        log.info("Start user finder in async mode for userId {}",userId);
         User user;
         try {
             CompletableFuture<UserName>    userNamePage    = userNameFinder.findAsync(userId);

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.vlcervera.composition.application.UserFinderAsyncUseCase;
 import org.vlcervera.composition.application.UserFinderUseCase;
 import org.vlcervera.composition.application.response.UserResponse;
 import org.vlcervera.composition.infrastructure.web.exception.UserFinderException;
@@ -17,12 +16,12 @@ import java.util.UUID;
 @RequestMapping("/users/{userId}")
 public class UserFinderController {
 
-    private final UserFinderAsyncUseCase userFinderAsyncUseCase;
-    private final UserFinderUseCase      userFinderUseCase;
+    private final UserFinderUseCase userFinderUseCaseAsync;
+    private final UserFinderUseCase userFinderUseCase;
 
     @GetMapping("/async")
     public UserResponse getAsync(@PathVariable("userId") UUID userId) {
-        return userFinderAsyncUseCase.find(userId);
+        return userFinderUseCaseAsync.find(userId);
     }
 
     @GetMapping

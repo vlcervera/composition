@@ -1,6 +1,6 @@
 package org.vlcervera.composition.domain.port;
 
-import org.vlcervera.composition.domain.User;
+import org.vlcervera.composition.domain.model.User;
 
 import java.util.UUID;
 

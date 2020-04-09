@@ -1,5 +1,14 @@
 # Composition using @Async methods
 
+This is an example to use @Async methods provided by Spring in a service developed with hexagonal architecture.
+The asynchronous behaviour is located in the infrastructure layer, the domain of our service only knows that needs a Port
+to retrieve a User instance. 
+The detail of how to get this User is part of the infrastructure layer.
+
+In that case, we have two implementations of UserFinderPort:
+- UserFinderAdapter with a sequential request flow
+- UserAsyncFinderAdapter with asynchronous requests
+
 # Steps
 Configure your application to enable async behaviour using @EnableAsync annotation in your spring boot
 application class.

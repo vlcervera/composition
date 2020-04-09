@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.vlcervera.composition.domain.User;
+import org.vlcervera.composition.domain.model.User;
 
 @Data
 @NoArgsConstructor

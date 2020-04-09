@@ -1,4 +1,4 @@
-package org.vlcervera.composition.domain.vobject;
+package org.vlcervera.composition.domain.model.vobject;
 
 import lombok.Getter;
 
